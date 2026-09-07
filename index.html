@@ -85,20 +85,6 @@
   .faculty .tag { font: 400 clamp(9px, 1vw, 11px) Jost, sans-serif; letter-spacing: .24em; text-transform: uppercase; color: #5d5040; }
   .faculty .school { font: 400 clamp(13px, 1.6vw, 17px) Spectral, serif; color: #4a3524; }
 
-  .topicbar.glass {
-    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: clamp(8px, 1.6vw, 20px);
-    padding: clamp(12px, 1.6vw, 16px) clamp(18px, 2.6vw, 30px); border-radius: 999px;
-    background: linear-gradient(158deg, rgba(255,255,255,.66), rgba(255,255,255,.26));
-    box-shadow: 0 10px 24px rgba(74,53,36,.12), 0 1px 0 rgba(255,255,255,.95) inset, 0 0 0 1px rgba(255,255,255,.5) inset;
-    backdrop-filter: blur(22px) saturate(150%);
-  }
-  .topicbar .topic { font: 400 clamp(15px, 1.8vw, 20px) Spectral, serif; font-style: italic; color: #4a3524; }
-  .topicbar .unit { display: flex; align-items: center; gap: 8px; font: 400 clamp(9px, 1vw, 11px) Jost, sans-serif; letter-spacing: .22em; text-transform: uppercase; color: #5d5040; }
-  .status-dot { width: 8px; height: 8px; border-radius: 999px; background: #a99; flex: none; }
-  .status-dot.idle { background: #8ba888; }
-  .status-dot.loading { background: #d8ab5a; animation: pulse 1s ease-in-out infinite; }
-  .status-dot.talking { background: #4e6f8c; animation: pulse .6s ease-in-out infinite; }
-  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
 
   .avatar-frame {
     grid-area: avatar;
@@ -221,11 +207,6 @@
             <span class="school">Universidad Bernardo O'Higgins</span>
           </div>
         </header>
-
-        <div class="topicbar glass">
-          <span class="topic">Derecho Procesal Civil</span>
-          <span class="unit"><span class="status-dot" id="status-dot"></span><span id="status-text">Conectando…</span></span>
-        </div>
       </div>
 
       <div class="avatar-frame">
@@ -270,8 +251,6 @@
     const videoEl = document.getElementById('agent-video');
     const startOverlay = document.getElementById('start-overlay');
     const startBtn = document.getElementById('start-btn');
-    const statusDot = document.getElementById('status-dot');
-    const statusText = document.getElementById('status-text');
     const transcript = document.getElementById('transcript');
     const form = document.getElementById('composer-form');
     const input = document.getElementById('composer-input');
@@ -283,8 +262,7 @@
     const seenMessageIds = new Set();
 
     function setStatus(state, text) {
-      statusDot.className = 'status-dot' + (state ? ' ' + state : '');
-      statusText.textContent = text;
+      console.log('LEX status:', state, text);
     }
 
     function addBubble(role, text) {
