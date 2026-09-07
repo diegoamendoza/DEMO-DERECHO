@@ -26,7 +26,6 @@
   .totem {
     position: relative;
     width: 100%;
-    max-width: 1400px;
     min-height: 100dvh;
     background: #f0e4cf;
     color: #33291f;
@@ -150,7 +149,8 @@
     border-radius: clamp(20px, 3vw, 34px);
     display: flex; flex-direction: column; gap: 14px;
     box-shadow: 0 20px 46px rgba(74,53,36,.16), 0 1px 0 rgba(255,255,255,.95) inset, 0 0 0 1px rgba(255,255,255,.55) inset;
-    max-height: clamp(220px, 34vh, 380px);
+    max-height: clamp(220px, 44vh, 520px);
+    flex: 1;
     overflow-y: auto;
   }
   .transcript .row { display: flex; align-items: center; gap: 18px; margin-bottom: 4px; }
@@ -158,19 +158,6 @@
   .bubble { max-width: 88%; font: 300 clamp(16px, 1.9vw, 21px)/1.4 Spectral, serif; color: #3b3129; padding: 4px 0; }
   .bubble.user { align-self: flex-end; text-align: right; color: #4e6f8c; font-style: italic; }
   .bubble.assistant { align-self: flex-start; }
-
-  .suggestions { display: flex; flex-direction: column; gap: clamp(10px, 1.4vw, 14px); }
-  .suggestions .label { font: 400 clamp(10px, 1.1vw, 12px) Jost, sans-serif; letter-spacing: .3em; text-transform: uppercase; color: #5d5040; padding-left: 6px; }
-  .suggestions .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: clamp(10px, 1.4vw, 14px); }
-  .chip {
-    display: flex; align-items: center; gap: clamp(10px, 1.6vw, 16px); padding: clamp(14px, 2vw, 20px) clamp(18px, 2.4vw, 24px); border-radius: 999px;
-    background: linear-gradient(158deg, rgba(255,255,255,.66), rgba(255,255,255,.26));
-    backdrop-filter: blur(22px) saturate(150%);
-    box-shadow: 0 10px 22px rgba(74,53,36,.13), 0 1px 0 rgba(255,255,255,.95) inset, 0 0 0 1px rgba(255,255,255,.5) inset;
-    text-align: left; width: 100%;
-  }
-  .chip .num { font: 400 clamp(10px, 1.1vw, 12px) Jost, sans-serif; letter-spacing: .14em; color: #4f4335; flex: none; }
-  .chip .label2 { flex: 1; font: 400 clamp(14px, 1.7vw, 19px) Spectral, serif; color: #3b3129; }
 
   .composer.glass {
     display: flex; align-items: center; gap: clamp(8px, 1.4vw, 14px);
@@ -260,16 +247,6 @@
             <span class="rule"></span>
           </div>
           <div class="bubble assistant">Hola, soy LEX. Escribe o habla tu consulta abajo; respondo con base en la Constitución, el Código Civil, el Código de Procedimiento Civil, el Código Penal y el Código del Trabajo.</div>
-        </div>
-
-        <div class="suggestions">
-          <span class="label">Consultas frecuentes</span>
-          <div class="grid">
-            <button class="chip" type="button" data-q="Explícame el término de emplazamiento"><span class="num">01</span><span class="label2">Explícame el término de emplazamiento</span></button>
-            <button class="chip" type="button" data-q="Diferencias entre nulidad absoluta y relativa"><span class="num">02</span><span class="label2">Diferencias entre nulidad absoluta y relativa</span></button>
-            <button class="chip" type="button" data-q="¿Qué garantías fundamentales protege la Constitución?"><span class="num">03</span><span class="label2">¿Qué garantías fundamentales protege la Constitución?</span></button>
-            <button class="chip" type="button" data-q="¿Qué material cubre esta materia?"><span class="num">04</span><span class="label2">¿Qué material cubre esta materia?</span></button>
-          </div>
         </div>
 
         <form class="composer glass" id="composer-form">
@@ -401,10 +378,6 @@
       const text = input.value;
       input.value = '';
       sendMessage(text);
-    });
-
-    document.querySelectorAll('.chip').forEach(chip => {
-      chip.addEventListener('click', () => sendMessage(chip.dataset.q));
     });
 
     // Voice input via the browser's own speech recognition (mic button)
